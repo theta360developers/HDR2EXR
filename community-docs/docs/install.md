@@ -1,1 +1,3 @@
 ## HDR2EXR Plug-in Installation
+
+Just testing...
