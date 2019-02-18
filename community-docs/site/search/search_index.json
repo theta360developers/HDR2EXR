@@ -3,7 +3,7 @@
         {
             "location": "/", 
             "text": "HDR2EXR Community Documentation\n\n\nContributed documentation for HDR2EXR project by \nKasper Oerlemans, \nKasper\n on \n\ntheta360.guide\n.\n\n\n\n\nProject GitHub repo \nhttps://github.com/iamagod/HDR2EXR\n\n\nCommunity discussion\n\n\n\n\nCommands", 
-            "title": "HDR2EXR Community Documentation"
+            "title": "Home"
         }, 
         {
             "location": "/#hdr2exr-community-documentation", 
@@ -17,18 +17,18 @@
         }, 
         {
             "location": "/install/", 
-            "text": "HDR2EXR Plug-in Installation", 
-            "title": "Install"
+            "text": "HDR2EXR Plug-in Installation\n\n\nJust testing...", 
+            "title": "Installation"
         }, 
         {
             "location": "/install/#hdr2exr-plug-in-installation", 
-            "text": "", 
+            "text": "Just testing...", 
             "title": "HDR2EXR Plug-in Installation"
         }, 
         {
             "location": "/usage/", 
             "text": "Plug-in Usage", 
-            "title": "Usage"
+            "title": "Using the Plug-in"
         }, 
         {
             "location": "/usage/#plug-in-usage", 
@@ -38,7 +38,7 @@
         {
             "location": "/vfx/", 
             "text": "VFX Usage Example", 
-            "title": "VFX Usage Example"
+            "title": "VFX Lighting"
         }, 
         {
             "location": "/vfx/#vfx-usage-example", 
