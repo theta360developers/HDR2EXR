@@ -2,18 +2,13 @@
     "docs": [
         {
             "location": "/", 
-            "text": "HDR2EXR Community Documentation\n\n\nContributed documentation for HDR2EXR project by \nKasper Oerlemans, \nKasper\n on \n\ntheta360.guide\n.\n\n\n\n\nProject GitHub repo \nhttps://github.com/iamagod/HDR2EXR\n\n\nCommunity discussion\n\n\n\n\nCommands", 
+            "text": "HDR2EXR Community Documentation\n\n\nContributed documentation for HDR2EXR project by \nKasper Oerlemans, \nKasper\n on \n\ntheta360.guide\n.\n\n\n\n\nProject GitHub repo \nhttps://github.com/iamagod/HDR2EXR\n\n\nCommunity discussion", 
             "title": "Home"
         }, 
         {
             "location": "/#hdr2exr-community-documentation", 
             "text": "Contributed documentation for HDR2EXR project by \nKasper Oerlemans,  Kasper  on  theta360.guide .   Project GitHub repo  https://github.com/iamagod/HDR2EXR  Community discussion", 
             "title": "HDR2EXR Community Documentation"
-        }, 
-        {
-            "location": "/#commands", 
-            "text": "", 
-            "title": "Commands"
         }, 
         {
             "location": "/install/", 
@@ -37,13 +32,43 @@
         }, 
         {
             "location": "/vfx/", 
-            "text": "VFX Usage Example", 
+            "text": "VFX Usage Example\n\n\nThis section is intended for non-VFX professionals that want to get a quick\noverview of what HDR files can be used for. The most common usage for HDR\nis to provide lighting to a 3D scene.\n\n\nPhoto Editing\n\n\nCommercial\n\n\n\n\nPhotoshop\n\n\n\n\nFree and Open Source\n\n\n\n\nGIMP\n 2.10 can open EXR files\n\n\n\n\nVFX Tools\n\n\nFree to Use for Non-Commercial Use\n\n\n\n\nFoundry Nuke\n\n\nFusion - DaVinci Resolve\n\n\n\n\nOpen Source Basic Modelling\n\n\n\n\nBlender", 
             "title": "VFX Lighting"
         }, 
         {
             "location": "/vfx/#vfx-usage-example", 
-            "text": "", 
+            "text": "This section is intended for non-VFX professionals that want to get a quick\noverview of what HDR files can be used for. The most common usage for HDR\nis to provide lighting to a 3D scene.", 
             "title": "VFX Usage Example"
+        }, 
+        {
+            "location": "/vfx/#photo-editing", 
+            "text": "", 
+            "title": "Photo Editing"
+        }, 
+        {
+            "location": "/vfx/#commercial", 
+            "text": "Photoshop", 
+            "title": "Commercial"
+        }, 
+        {
+            "location": "/vfx/#free-and-open-source", 
+            "text": "GIMP  2.10 can open EXR files", 
+            "title": "Free and Open Source"
+        }, 
+        {
+            "location": "/vfx/#vfx-tools", 
+            "text": "", 
+            "title": "VFX Tools"
+        }, 
+        {
+            "location": "/vfx/#free-to-use-for-non-commercial-use", 
+            "text": "Foundry Nuke  Fusion - DaVinci Resolve", 
+            "title": "Free to Use for Non-Commercial Use"
+        }, 
+        {
+            "location": "/vfx/#open-source-basic-modelling", 
+            "text": "Blender", 
+            "title": "Open Source Basic Modelling"
         }
     ]
 }
