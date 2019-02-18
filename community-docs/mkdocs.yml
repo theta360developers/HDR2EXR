@@ -1,0 +1,7 @@
+site_name: HDR2EXR Community Documentation
+
+nav:
+  - Home: index.md
+  - Installation: install.md
+  - Using the Plug-in: usage.md
+  - VFX Lighting: vfx.md

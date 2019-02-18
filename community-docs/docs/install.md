@@ -1,0 +1,1 @@
+## HDR2EXR Plug-in Installation

@@ -1,0 +1,54 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "HDR2EXR Community Documentation\n\n\nContributed documentation for HDR2EXR project by \nKasper Oerlemans, \nKasper\n on \n\ntheta360.guide\n.\n\n\n\n\nProject GitHub repo \nhttps://github.com/iamagod/HDR2EXR\n\n\nCommunity discussion\n\n\n\n\nCommands\n\n\nProject layout\n\n\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "HDR2EXR Community Documentation"
+        }, 
+        {
+            "location": "/#hdr2exr-community-documentation", 
+            "text": "Contributed documentation for HDR2EXR project by \nKasper Oerlemans,  Kasper  on  theta360.guide .   Project GitHub repo  https://github.com/iamagod/HDR2EXR  Community discussion", 
+            "title": "HDR2EXR Community Documentation"
+        }, 
+        {
+            "location": "/#commands", 
+            "text": "", 
+            "title": "Commands"
+        }, 
+        {
+            "location": "/#project-layout", 
+            "text": "mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "Project layout"
+        }, 
+        {
+            "location": "/install/", 
+            "text": "HDR2EXR Plug-in Installation", 
+            "title": "Install"
+        }, 
+        {
+            "location": "/install/#hdr2exr-plug-in-installation", 
+            "text": "", 
+            "title": "HDR2EXR Plug-in Installation"
+        }, 
+        {
+            "location": "/usage/", 
+            "text": "Plug-in Usage", 
+            "title": "Usage"
+        }, 
+        {
+            "location": "/usage/#plug-in-usage", 
+            "text": "", 
+            "title": "Plug-in Usage"
+        }, 
+        {
+            "location": "/vfx/", 
+            "text": "VFX Usage Example", 
+            "title": "VFX Usage Example"
+        }, 
+        {
+            "location": "/vfx/#vfx-usage-example", 
+            "text": "", 
+            "title": "VFX Usage Example"
+        }
+    ]
+}
