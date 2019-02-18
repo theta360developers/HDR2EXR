@@ -7,8 +7,3 @@ Kasper Oerlemans, [Kasper](https://community.theta360.guide/u/Kasper) on
 * Project GitHub repo [https://github.com/iamagod/HDR2EXR](https://github.com/iamagod/HDR2EXR)
 * [Community discussion](https://community.theta360.guide/t/hdr-plugin-to-automatically-create-exr-file-for-vfx-use/4132?u=codetricity)
 
-
-
-## Commands
-
-
