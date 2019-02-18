@@ -1,6 +1,15 @@
 site_name: HDR2EXR Community Documentation
+site_url: http://theta360.guide/HDR2EXR/community-docs/site/
 
-nav:
+theme: 
+  name: material
+  palette:
+    primary: 'indigo'
+    accent: 'cyan'
+  # favicon: assets/images/favicon.ico
+  # logo: assets/images/logo.png
+
+pages:
   - Home: index.md
   - Installation: install.md
   - Using the Plug-in: usage.md
