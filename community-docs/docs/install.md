@@ -13,3 +13,5 @@ The RICOH THETA V 360 degree camera is used regularly in VFX to grab lighting in
 THE THETA V has the ability to run "plug-ins" (an Android app) inside the camera. These can customize how the camera is used. Often, a plug-in will add multiple pre-defined steps to one button press, saving time and effort.
 
 This HDR2EXR plug-in, developed by Kasper Oerlemans, is not submitted to the THETA Store yet, so it needs to be installed manually. This requires a series of steps which are not hard but take probably 10 minutes for the first-time setup.
+
+![](img/install/IMG_3229.jpg)
