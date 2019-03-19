@@ -5,14 +5,15 @@
  *
  * TODO v1
  * - make colors en sounds better
- * - exr half float support
  * - clean up code?
  * - do all dirs exist? if not create!
  * - are all permissions okey? no error...
- * - maybe get avarrage pixel value and divide by that?
  * - get check if full white/black and stop
- * - set check if expsoure values are the same
+ * - set check if exposure values are the same
  * - set fixed wb
+ * - split in two seperate pieces with unstiched version to get seperate crc
+ * - save crc to disk
+ * - load highend src from disk
  *
  * TODO v2
  * - add web interface
@@ -33,7 +34,6 @@
 //package com.theta360.pluginapplication;
 package com.kasper.hdr4exr;
 
-//import com.kasper.hdr4exr.R;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -53,7 +53,10 @@ import org.opencv.android.OpenCVLoader;
 import static org.opencv.imgcodecs.Imgcodecs.imread;
 import static org.opencv.imgcodecs.Imgcodecs.imwrite;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
+import java.lang.String;
+
+import org.opencv.core.MatOfInt;
+import org.opencv.core.Scalar;
 
 import com.theta360.pluginlibrary.activity.PluginActivity;
 import com.theta360.pluginlibrary.callback.KeyCallback;
@@ -70,6 +73,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
@@ -81,11 +85,10 @@ public class MainActivity extends PluginActivity implements SurfaceHolder.Callba
     private int bcnt = 0; //bracketing count
     private int shutterSpeedValue = 0;  // can be 0 to 62. 0 is 1/25000
 
-    private static final int numberOfPictures = 11;
+    private static final int numberOfPictures = 13;
     private static final int shutterSpeedSpacing = 6;
-    private static final Double stop_jumps = 2.0;
+    private static final Double stop_jumps = 1.0;
 
-    //static int IMWRITE_EXR_TYPE = 1;
 
 
     Double[][] bracket_array = new Double[numberOfPictures][4];
@@ -100,6 +103,8 @@ public class MainActivity extends PluginActivity implements SurfaceHolder.Callba
     // true will start with bracket
     private boolean m_is_bracket = true;
     private boolean m_is_auto_pic = true;
+
+    private MatOfInt compressParams;
 
 
     Double shutter_table[][] =
@@ -246,12 +251,12 @@ public class MainActivity extends PluginActivity implements SurfaceHolder.Callba
         //Log.d("shooting mode", params.flatten());
         params.set("RIC_SHOOTING_MODE", "RicStillCaptureStd");
 
-        //params.set("RIC_PROC_STITCHING", "RicNonStitching");
-        //params.setPictureSize(5792, 2896); // no stiching
+        params.set("RIC_PROC_STITCHING", "RicNonStitching");
+        params.setPictureSize(5792, 2896); // no stiching
 
         params.setPictureFormat(ImageFormat.JPEG);
         params.set("jpeg-quality",100);
-        params.setPictureSize(5376, 2688); // stiched
+        //params.setPictureSize(5376, 2688); // stiched
 
         // https://api.ricoh/docs/theta-plugin-reference/camera-api/
         //Shutter speed. To convert this value to ordinary 'Shutter Speed';
@@ -360,61 +365,26 @@ public class MainActivity extends PluginActivity implements SurfaceHolder.Callba
             //Log.i(TAG,"Saving file.");
             opath = Environment.getExternalStorageDirectory().getPath()+ "/DCIM/100RICOH/" + session_name + ".exr";
             Log.i(TAG,"Saving file as " + opath + ".");
-            //para = {org.opencv.imgcodecs.Imgcodecs.IMWRITE_EXR_TYPE, org.opencv.imgcodecs.Imgcodecs.IMWRITE_EXR_TYPE_HALF};
-            imwrite(opath, hdrDebevec);
+            compressParams = new MatOfInt(org.opencv.imgcodecs.Imgcodecs.CV_IMWRITE_EXR_TYPE, org.opencv.imgcodecs.Imgcodecs.IMWRITE_EXR_TYPE_HALF);
+
+
+            //We divide by the mean value of the whole picture to get the exposure values with a proper range.
+
+            //Mat divide_hdr  = new Mat();
+
+            Scalar mean =  org.opencv.core.Core.mean(hdrDebevec);
+            Log.d(TAG,"Mean: " + mean.toString());
+            double new_mean = (mean.val[0]+mean.val[1]+mean.val[2])/3.0;
+            Log.i(TAG,"Average Mean: " + Double.toString(new_mean));
+            org.opencv.core.Core.divide(hdrDebevec,new Scalar(new_mean,new_mean,new_mean,0),hdrDebevec);
+
+            //opath = Environment.getExternalStorageDirectory().getPath()+ "/DCIM/100RICOH/" + session_name + "_mean.exr";
+            imwrite(opath, hdrDebevec,compressParams);
 
             Log.i(TAG,"HDR save done.");
-
-            /*merge_mertens = cv2.createMergeMertens()
-            res_mertens = merge_mertens.process(img_list)*/
-            /*
-            Mat hdrMertens = new Mat();
-            org.opencv.photo.MergeMertens mergeMertens = org.opencv.photo.Photo.createMergeMertens();
-            Log.i(TAG,"Starting Mertens merge.");
-            mergeMertens.process(images,hdrMertens);
-
-
-            opath = Environment.getExternalStorageDirectory().getPath()+ "/DCIM/100RICOH/" + session_name + "_Mertens.exr";
-            Log.i(TAG,"Saving Mertens file as " + opath + ".");
-            //para = {org.opencv.imgcodecs.Imgcodecs.IMWRITE_EXR_TYPE, org.opencv.imgcodecs.Imgcodecs.IMWRITE_EXR_TYPE_HALF};
-            imwrite(opath, hdrMertens);
-
-            Log.i(TAG,"HDR Mertens save done.");
-
-            */
-            /*
-
-            Log.i(TAG,"Starting Robertson calibration.");
-
-            Mat responseRobertson = new Mat();
-            org.opencv.photo.CalibrateRobertson calibrateRobertson = org.opencv.photo.Photo.createCalibrateRobertson();
-            calibrateRobertson.process(images, responseRobertson, times);
-
-            Log.i(TAG,"Preping Robertson merge.");
-
-            Mat hdrRobertson = new Mat();
-            org.opencv.photo.MergeRobertson mergeRobertson = org.opencv.photo.Photo.createMergeRobertson();
-            Log.i(TAG,"Starting Robertson merge.");
-            mergeRobertson.process(images, hdrRobertson, times, responseRobertson);
-
-            // Save HDR image.
-            //Log.i(TAG,"Saving Robertson file.");
-            opath = Environment.getExternalStorageDirectory().getPath()+ "/DCIM/100RICOH/" + session_name + "_Robertson.exr";
-            Log.i(TAG,"Saving Robertson file as " + opath + ".");
-            //para = {org.opencv.imgcodecs.Imgcodecs.IMWRITE_EXR_TYPE, org.opencv.imgcodecs.Imgcodecs.IMWRITE_EXR_TYPE_HALF};
-            imwrite(opath, hdrRobertson);
-
-            Log.i(TAG,"HDR save done.");
-
-            */
-
-
-
 
             Log.i(TAG,"----- JOB DONE -----");
             notificationLedBlink(LedTarget.LED3, LedColor.MAGENTA, 300);
-
-
 
             Intent intent = new Intent("com.theta360.plugin.ACTION_AUDIO_SH_CLOSE");
             sendBroadcast(intent);
@@ -570,6 +540,9 @@ public class MainActivity extends PluginActivity implements SurfaceHolder.Callba
 
                     }
 
+                    //sort array from high to low
+                    Arrays.sort(bracket_array, (a, b) -> Double.compare(a[2], b[2]));
+
                     String opath = Environment.getExternalStorageDirectory().getPath()+ "/DCIM/100RICOH/" +  session_name + "/" + extra + ".jpg";
                     //String opath = Environment.getExternalStorageDirectory().getPath()+ "/DCIM/100RICOH/IMG_" + Integer.toString(current_count) + ".JPG";
 
@@ -594,7 +567,7 @@ public class MainActivity extends PluginActivity implements SurfaceHolder.Callba
                         out = Double.toString(1.0/(Math.pow(2,shutter_flt)));
                     }
                     //String shttr_str = exif.getAttribute(ExifInterface.TAG_SHUTTER_SPEED_VALUE);
-                    Log.i(TAG,"shutter_float is" + shutter_flt);
+                    //Log.i(TAG,"shutter_float is" + shutter_flt);
                     Float shutter_speed_float = Float.parseFloat(exif.getAttribute(ExifInterface.TAG_EXPOSURE_TIME));
                     DecimalFormat df = new DecimalFormat("00.00000");
                     df.setMaximumFractionDigits(5);
@@ -614,6 +587,8 @@ public class MainActivity extends PluginActivity implements SurfaceHolder.Callba
                     Log.d(TAG,"EXIF iso value: " + exif.getAttribute(ExifInterface.TAG_ISO_SPEED_RATINGS));
                     Log.d(TAG,"EXIF shutter value " + exif.getAttribute(ExifInterface.TAG_SHUTTER_SPEED_VALUE) + " or " + out + " sec.");
                     Log.d(TAG,"EXIF shutter value/exposure value " + exif.getAttribute(ExifInterface.TAG_EXPOSURE_TIME) + " sec.");
+                    Log.d(TAG,"EXIF Color Temp: " + exif.getAttribute(ExifInterface.TAG_WHITE_BALANCE));
+                    Log.d(TAG,"EXIF white point: " + exif.getAttribute(ExifInterface.TAG_WHITE_POINT));
 
 
                     fos.close();
